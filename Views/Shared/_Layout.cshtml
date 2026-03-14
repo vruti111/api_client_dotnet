@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - API Client</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body class="dark-theme">
+    <div class="app-container d-flex h-100">
+        <!-- Sidebar -->
+        <aside class="sidebar d-flex flex-column h-100 ps-3 pt-3">
+            <div class="d-flex justify-content-between align-items-center mb-4 pe-3">
+                <h5 class="text-white fw-bold m-0">Collections</h5>
+                <button class="btn btn-sm text-secondary" title="New Collection" id="btn-new-collection">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder-plus" viewBox="0 0 16 16">
+                      <path d="Mm.5 3l.4 2M3.1 4H14.5A1.5 1.5 0 0 1 16 5.5v7a1.5 1.5 0 0 1-1.5 1.5H1.5A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h3.6l1.5 2z"/>
+                    </svg>
+                </button>
+            </div>
+            <button class="btn btn-outline-success btn-sm w-75 mb-3 rounded-0 text-start" style="border-radius: 4px !important; border-color: #3f683f; color: #b1d4b1;">
+                Personal Workspace
+            </button>
+            <div class="api-list flex-grow-1 overflow-auto pe-2">
+                <!-- Example Collection -->
+                <div class="collection-folder mb-2">
+                    <div class="d-flex align-items-center text-white p-1" style="cursor:pointer; font-size: 0.95rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-folder2 me-2 text-warning" viewBox="0 0 16 16">
+                          <path d="M1 3.5A1.5 1.5 0 0 1 2.5 2h2.764c.958 0 1.76.56 2.311 1.184C7.985 3.648 8.48 4 9 4h4.5A1.5 1.5 0 0 1 15 5.5v7a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 12.5v-9zM2.5 3a.5.5 0 0 0-.5.5V6h12v-.5a.5.5 0 0 0-.5-.5H9c-.964 0-1.71-.629-2.174-1.154C6.374 3.334 5.82 3 5.264 3H2.5zM14 7H2v5.5a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 .5-.5V7z"/>
+                        </svg>
+                        Authentication
+                    </div>
+                    <div class="collection-items ps-3">
+                        <div class="api-item active d-flex align-items-center mb-1 py-1 px-2 rounded">
+                            <span class="method-badge post me-2">POST</span>
+                            <span class="text-white text-truncate" style="font-size: 0.9rem;">Login</span>
+                        </div>
+                        <div class="api-item d-flex align-items-center mb-1 py-1 px-2 rounded">
+                            <span class="method-badge get me-2">GET</span>
+                            <span class="text-white text-truncate" style="font-size: 0.9rem;">Get Profile</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main role="main" class="main-workspace flex-grow-1 h-100 d-flex flex-column">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- Environment Modal -->
+    <div class="modal fade" id="envModal" tabindex="-1" aria-labelledby="envModalLabel" aria-hidden="true" data-bs-theme="dark">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-dark text-white border-secondary">
+          <div class="modal-header border-bottom border-secondary">
+            <h5 class="modal-title" id="envModalLabel">Manage Environments</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+                <div class="col-4 border-end border-secondary">
+                    <ul class="list-group list-group-flush" id="env-list">
+                      <li class="list-group-item active bg-secondary border-0 text-white rounded cursor-pointer mb-1">Production</li>
+                      <li class="list-group-item bg-transparent text-white border-0 cursor-pointer">Local</li>
+                    </ul>
+                    <button class="btn btn-outline-success btn-sm w-100 mt-3">+ Add</button>
+                </div>
+                <div class="col-8">
+                    <input type="text" class="form-control bg-dark text-white mb-3" value="Production">
+                    <h6 class="text-secondary small fw-bold mb-2">Variables</h6>
+                    <table class="table table-dark table-borderless table-sm custom-grid" id="envTable">
+                        <thead>
+                            <tr>
+                                <th style="width: 40%;">Variable</th>
+                                <th style="width: 50%;">Initial Value</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="grid-row">
+                                <td><input type="text" class="form-control form-control-sm border-0 bg-transparent text-warning env-key" value="baseUrl"></td>
+                                <td><input type="text" class="form-control form-control-sm border-0 bg-transparent text-white env-val" value="https://api.example.com"></td>
+                                <td><button class="btn btn-link btn-sm text-secondary delete-row text-decoration-none">&times;</button></td>
+                            </tr>
+                            <tr class="grid-row">
+                                <td><input type="text" class="form-control form-control-sm border-0 bg-transparent text-warning env-key" placeholder="New Variable"></td>
+                                <td><input type="text" class="form-control form-control-sm border-0 bg-transparent text-white env-val" placeholder="Value"></td>
+                                <td><button class="btn btn-link btn-sm text-secondary delete-row text-decoration-none">&times;</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+          </div>
+          <div class="modal-footer border-top border-secondary">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-success">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

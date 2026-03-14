@@ -1,0 +1,182 @@
+/* General App Styles */
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #0d0d0d;
+    color: #e0e0e0;
+}
+
+.dark-theme {
+    background-color: #0d0d0d;
+}
+
+.bg-dark {
+    background-color: #1a1a1a !important;
+}
+
+/* Scrollbar customization */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #0d0d0d;
+}
+::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 280px;
+    background-color: #0a0a0a;
+    border-right: 1px solid #222;
+}
+
+.api-item {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.api-item:hover {
+    background-color: #1a1a1a;
+}
+.api-item.active {
+    background-color: #3f3f2d; /* Slight yellow tint for active indicating focus */
+    border-left: 2px solid #e1e938; /* Yellow accent like reference */
+}
+
+/* HTTP Method Colors */
+.method-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    width: 45px;
+    display: inline-block;
+}
+.method-badge.get { color: #819fff; }
+.method-badge.post { color: #50e3c2; }
+.method-badge.put { color: #f5a623; }
+.method-badge.delete { color: #e55934; }
+
+.doc-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #e1e938;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/* Main Workspace */
+.main-workspace {
+    background-color: #0d0d0d;
+}
+
+.workspace-header {
+    background-color: #0a0a0a;
+    border-color: #222 !important;
+}
+
+/* Request Bar */
+.url-input {
+    font-family: monospace;
+    font-size: 0.95rem;
+}
+.url-input:focus {
+    box-shadow: none;
+    border-color: #444;
+}
+
+.method-select {
+    cursor: pointer;
+}
+.method-select:focus {
+    box-shadow: none;
+}
+
+#btn-send {
+    background-color: #eb4d4b;
+    border: none;
+    transition: background-color 0.2s, transform 0.1s;
+}
+#btn-send:hover {
+    background-color: #ff5252;
+}
+#btn-send:active {
+    transform: scale(0.98);
+}
+
+/* Tabs */
+.editor-tabs {
+    border-bottom: 1px solid #222 !important;
+}
+.editor-tabs .nav-link {
+    color: #888;
+    border: none;
+    background: transparent;
+    padding: 10px 16px;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+.editor-tabs .nav-link:hover {
+    color: #ccc;
+    border: none;
+}
+.editor-tabs .nav-link.active {
+    color: #fff;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #eb4d4b;
+}
+
+/* Grid layout for params */
+.custom-grid th {
+    font-size: 0.8rem;
+    color: #666;
+    border-bottom: 1px solid #222 !important;
+    padding-bottom: 8px;
+    font-weight: 500;
+}
+.custom-grid td {
+    border-bottom: 1px solid #1a1a1a !important;
+    padding: 0;
+}
+.custom-grid input {
+    border-radius: 0;
+}
+.custom-grid input:focus {
+    box-shadow: none;
+    background-color: #151515 !important;
+}
+.custom-grid tr:hover {
+    background-color: #121212;
+}
+
+.delete-row {
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+.custom-grid tr:hover .delete-row {
+    opacity: 1;
+}
+.delete-row:hover {
+    text-shadow: 0 0 5px rgba(235, 77, 75, 0.5);
+    color: #eb4d4b !important;
+}
+
+/* Miscellaneous */
+.text-warning { color: #f5a623 !important; }
+.text-danger { color: #eb4d4b !important; }
+.bg-dark { background-color: #161616 !important; }
+.border-dark { border-color: #222 !important; }
+
+#requestBody {
+    resize: vertical;
+}
+#requestBody:focus {
+    box-shadow: none;
+    border-color: #444;
+}

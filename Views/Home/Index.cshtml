@@ -1,0 +1,209 @@
+﻿@{
+    ViewData["Title"] = "Request Builder";
+}
+
+<div class="workspace-header d-flex justify-content-between align-items-center p-3 border-bottom border-dark">
+    <div class="d-flex align-items-center">
+        <span class="text-warning fw-bold fs-5 me-2">HTTP</span>
+        <span class="text-secondary">Authentication / Login</span>
+    </div>
+    <div class="d-flex align-items-center">
+        <select class="form-select form-select-sm bg-dark text-white border-secondary me-2 select-env" style="width: 150px;">
+            <option value="none">No Environment</option>
+            <option value="prod" selected>Production</option>
+            <option value="local">Local</option>
+        </select>
+        <button class="btn btn-sm btn-outline-secondary me-2" data-bs-toggle="modal" data-bs-target="#envModal" title="Manage Environments">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+              <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+              <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+            </svg>
+        </button>
+        <form asp-controller="Auth" asp-action="Logout" method="post" class="d-inline">
+            <button type="submit" class="btn btn-sm btn-outline-danger" title="Logout">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                  <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                </svg>
+            </button>
+        </form>
+    </div>
+</div>
+
+<div class="request-builder-area p-3">
+    <!-- Request Bar -->
+    <div class="request-bar d-flex align-items-stretch mb-4">
+        <div class="input-group">
+            <select class="form-select bg-dark text-warning fw-bold border-secondary method-select" style="max-width: 120px;">
+                <option value="GET">GET</option>
+                <option value="POST" selected>POST</option>
+                <option value="PUT">PUT</option>
+                <option value="DELETE">DELETE</option>
+            </select>
+            <input type="text" class="form-control bg-dark text-warning border-secondary url-input px-3" placeholder="Enter request URL" value="{{baseUrl}}/api/v1/auth/login">
+        </div>
+        <button class="btn btn-danger ms-3 px-4 fw-bold shadow-sm" id="btn-send">Send</button>
+        <button class="btn btn-outline-secondary ms-2 px-3 fw-bold text-white border-secondary d-flex align-items-center" id="btn-save">
+            Save
+        </button>
+    </div>
+
+    <!-- Tabs -->
+    <ul class="nav nav-tabs editor-tabs border-bottom border-secondary" id="requestTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="params-tab" data-bs-toggle="tab" data-bs-target="#params" type="button" role="tab" aria-selected="false">Parameters</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="body-tab" data-bs-toggle="tab" data-bs-target="#body" type="button" role="tab" aria-selected="true">Body</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="headers-tab" data-bs-toggle="tab" data-bs-target="#headers" type="button" role="tab" aria-selected="false">Headers</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="auth-tab" data-bs-toggle="tab" data-bs-target="#auth" type="button" role="tab" aria-selected="false">Authorization</button>
+        </li>
+    </ul>
+
+    <!-- Tab Content -->
+    <div class="tab-content pt-3" id="requestTabsContent">
+        <!-- Parameters Tab -->
+        <div class="tab-pane fade" id="params" role="tabpanel">
+            <div class="table-container header-table">
+                <span class="text-secondary small fw-bold mb-2 d-block">Query Parameters</span>
+                <table class="table table-dark table-borderless table-sm custom-grid" id="paramsTable">
+                    <thead><tr><th style="width: 30%;">Key</th><th style="width: 30%;">Value</th><th style="width: 40%;">Description</th><th></th></tr></thead>
+                    <tbody>
+                        <tr class="grid-row">
+                            <td><input type="text" class="form-control form-control-sm border-0 bg-transparent text-white param-key" placeholder="Key"></td>
+                            <td><input type="text" class="form-control form-control-sm border-0 bg-transparent text-white param-val" placeholder="Value"></td>
+                            <td><input type="text" class="form-control form-control-sm border-0 bg-transparent text-secondary param-desc" placeholder="Description"></td>
+                            <td><button class="btn btn-link btn-sm text-secondary delete-row text-decoration-none">&times;</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Body Tab -->
+        <div class="tab-pane fade show active" id="body" role="tabpanel">
+            <div class="d-flex mb-2">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="bodyType" id="bodyNone" value="none">
+                  <label class="form-check-label text-secondary small" for="bodyNone">none</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="bodyType" id="bodyFormData" value="formdata">
+                  <label class="form-check-label text-secondary small" for="bodyFormData">form-data</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="bodyType" id="bodyUrlEncoded" value="urlencoded">
+                  <label class="form-check-label text-secondary small" for="bodyUrlEncoded">x-www-form-urlencoded</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="bodyType" id="bodyRaw" value="raw" checked>
+                  <label class="form-check-label text-secondary small" for="bodyRaw">raw</label>
+                </div>
+            </div>
+
+            <!-- Raw Json Editor -->
+            <div id="rawBodyEditor">
+                <textarea class="form-control bg-dark text-success font-monospace border-secondary" id="requestBody" rows="10" placeholder="{ ... }">{
+    "email": "user@example.com",
+    "password": "securepassword123"
+}               </textarea>
+            </div>
+
+            <!-- Form Data Editor -->
+            <div id="formDataEditor" class="d-none table-container header-table">
+                <table class="table table-dark table-borderless table-sm custom-grid" id="formDataTable">
+                    <thead><tr><th style="width: 30%;">Key</th><th style="width: 30%;">Value</th><th style="width: 40%;">Description</th><th></th></tr></thead>
+                    <tbody>
+                        <tr class="grid-row">
+                            <td><input type="text" class="form-control form-control-sm border-0 bg-transparent text-white form-key" placeholder="Key"></td>
+                            <td><input type="text" class="form-control form-control-sm border-0 bg-transparent text-white form-val" placeholder="Value"></td>
+                            <td><input type="text" class="form-control form-control-sm border-0 bg-transparent text-secondary form-desc" placeholder="Description"></td>
+                            <td><button class="btn btn-link btn-sm text-secondary delete-row text-decoration-none">&times;</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Headers Tab -->
+        <div class="tab-pane fade" id="headers" role="tabpanel">
+            <div class="table-container header-table">
+                <span class="text-secondary small fw-bold mb-2 d-block">Headers</span>
+                <table class="table table-dark table-borderless table-sm custom-grid" id="headersTable">
+                    <thead><tr><th style="width: 30%;">Key</th><th style="width: 30%;">Value</th><th style="width: 40%;">Description</th><th></th></tr></thead>
+                    <tbody>
+                        <tr class="grid-row">
+                            <td><input type="text" class="form-control form-control-sm border-0 bg-transparent text-white header-key" placeholder="Key" value="Content-Type"></td>
+                            <td><input type="text" class="form-control form-control-sm border-0 bg-transparent text-white header-val" placeholder="Value" value="application/json"></td>
+                            <td><input type="text" class="form-control form-control-sm border-0 bg-transparent text-secondary header-desc" placeholder="Description"></td>
+                            <td><button class="btn btn-link btn-sm text-secondary delete-row text-decoration-none">&times;</button></td>
+                        </tr>
+                        <tr class="grid-row">
+                            <td><input type="text" class="form-control form-control-sm border-0 bg-transparent text-white header-key" placeholder="Key"></td>
+                            <td><input type="text" class="form-control form-control-sm border-0 bg-transparent text-white header-val" placeholder="Value"></td>
+                            <td><input type="text" class="form-control form-control-sm border-0 bg-transparent text-secondary header-desc" placeholder="Description"></td>
+                            <td><button class="btn btn-link btn-sm text-secondary delete-row text-decoration-none">&times;</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Authorization Tab -->
+        <div class="tab-pane fade" id="auth" role="tabpanel">
+             <div class="row mt-2">
+                 <div class="col-md-3 border-end border-secondary">
+                     <p class="text-secondary small fw-bold mb-2">Type</p>
+                     <select class="form-select bg-dark text-white border-secondary" id="authTypeSelect">
+                         <option value="none">No Auth</option>
+                         <option value="bearer">Bearer Token</option>
+                         <option value="basic">Basic Auth</option>
+                     </select>
+                 </div>
+                 <div class="col-md-9 ps-4">
+                     <!-- Bearer -->
+                     <div id="authBearerSettings" class="d-none">
+                         <h6 class="text-white mb-3">Bearer Token</h6>
+                         <div class="mb-3">
+                             <label class="form-label text-secondary small">Token</label>
+                             <input type="text" class="form-control bg-dark text-warning border-secondary font-monospace" id="authBearerToken" placeholder="Token" value="{{token}}">
+                         </div>
+                     </div>
+                     <!-- Basic -->
+                     <div id="authBasicSettings" class="d-none">
+                         <h6 class="text-white mb-3">Basic Auth</h6>
+                         <div class="mb-3">
+                             <label class="form-label text-secondary small">Username</label>
+                             <input type="text" class="form-control bg-dark text-white border-secondary" id="authBasicUser" placeholder="Username">
+                         </div>
+                         <div class="mb-3">
+                             <label class="form-label text-secondary small">Password</label>
+                             <input type="password" class="form-control bg-dark text-white border-secondary" id="authBasicPass" placeholder="Password">
+                         </div>
+                     </div>
+                     <div id="authNoneSettings">
+                         <p class="text-secondary mt-2">This request does not use any authorization.</p>
+                     </div>
+                 </div>
+             </div>
+        </div>
+    </div>
+    
+    <!-- Response Area -->
+    <div class="response-area mt-4 border-top border-secondary pt-3">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h6 class="text-secondary m-0">Response</h6>
+            <div class="d-flex text-secondary" style="font-size: 0.85rem;">
+                <span class="me-3" id="respStatus">Status: <span class="text-success fw-bold">200 OK</span></span>
+                <span id="respTime">Time: <span class="text-success fw-bold">124 ms</span></span>
+            </div>
+        </div>
+        <div class="bg-dark p-3 rounded" style="min-height: 200px; max-height: 500px; overflow-y: auto;">
+            <pre class="text-success font-monospace mb-0" id="responseOutput">Ready to send.</pre>
+        </div>
+    </div>
+</div>

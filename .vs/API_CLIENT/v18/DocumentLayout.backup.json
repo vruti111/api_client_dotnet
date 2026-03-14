@@ -1,0 +1,77 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\kishanChauhan\\Desktop\\API_CLIENT\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{79520E6C-B46A-3031-EC36-CEF8F31182CB}|API_CLIENT.csproj|c:\\users\\kishanchauhan\\desktop\\api_client\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{79520E6C-B46A-3031-EC36-CEF8F31182CB}|API_CLIENT.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{79520E6C-B46A-3031-EC36-CEF8F31182CB}|API_CLIENT.csproj|c:\\users\\kishanchauhan\\desktop\\api_client\\migrations\\20260225071920_first migratin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{79520E6C-B46A-3031-EC36-CEF8F31182CB}|API_CLIENT.csproj|solutionrelative:migrations\\20260225071920_first migratin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{79520E6C-B46A-3031-EC36-CEF8F31182CB}|API_CLIENT.csproj|c:\\users\\kishanchauhan\\desktop\\api_client\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{79520E6C-B46A-3031-EC36-CEF8F31182CB}|API_CLIENT.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "20260225071920_first migratin.cs",
+              "DocumentMoniker": "C:\\Users\\kishanChauhan\\Desktop\\API_CLIENT\\Migrations\\20260225071920_first migratin.cs",
+              "RelativeDocumentMoniker": "Migrations\\20260225071920_first migratin.cs",
+              "ToolTip": "C:\\Users\\kishanChauhan\\Desktop\\API_CLIENT\\Migrations\\20260225071920_first migratin.cs",
+              "RelativeToolTip": "Migrations\\20260225071920_first migratin.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFEAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-25T07:19:21.005Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\kishanChauhan\\Desktop\\API_CLIENT\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\kishanChauhan\\Desktop\\API_CLIENT\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-02-25T07:16:24.634Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\kishanChauhan\\Desktop\\API_CLIENT\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\kishanChauhan\\Desktop\\API_CLIENT\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAABVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-25T07:16:20.298Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
